@@ -458,18 +458,21 @@ struct BindingStorage
   ~BindingStorage() { clear(); }
   bytebuf inlineBytes;
   rdcarray<DescriptorSetSlot *> binds;
+  uint32_t variableDescriptorCount;
 
   void clear()
   {
     inlineBytes.clear();
     binds.clear();
     elems.clear();
+    variableDescriptorCount = 0;
   }
 
   void reset()
   {
     memset(inlineBytes.data(), 0, inlineBytes.size());
     memset(elems.data(), 0, elems.byteSize());
+    variableDescriptorCount = 0;
   }
 
   void copy(DescriptorSetSlot *&slots, uint32_t &slotCount, byte *&inlineData, size_t &inlineSize)
